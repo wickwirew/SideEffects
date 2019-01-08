@@ -7,30 +7,25 @@
 
 import ReSwift
 
-public protocol AnySideEffect {
-    func handles(_ action: Action) -> Bool
-    func invoke(action: Action, dispatch: @escaping DispatchFunction, state: StateType)
-}
-
-public struct SideEffectWithState<A: Action, State: StateType>: AnySideEffect {
-    let action: (A, State, @escaping DispatchFunction) -> Void
-    public init(action: @escaping (A, State, @escaping DispatchFunction) -> Void) {
-        self.action = action
-    }
-}
-
-public extension SideEffectWithState {
+/// Hide the `SideEffect` type under the `Store`.
+/// Each app should make a type alias for this for ease of use.
+extension Store {
     
-    func handles(_ action: Action) -> Bool {
-        return action is A
-    }
-    
-    func invoke(action: Action, dispatch: @escaping DispatchFunction, state: StateType) {
-        self.action(action as! A, state as! State, dispatch)
+    public struct SideEffect {
+
+        let invoke: (Action, State, @escaping DispatchFunction) -> Void
+
+        public init<A: Action>(of actionType: A.Type,
+                               handler: @escaping (A, State, @escaping DispatchFunction) -> Void) {
+            self.invoke = { action, state, dispatch in
+                guard let action = action as? A else { return }
+                handler(action, state, dispatch)
+            }
+        }
     }
 }
 
-public func createSideEffectMiddleware<State: StateType>(effects: [AnySideEffect]) -> Middleware<State> {
+public func createSideEffectMiddleware<State: StateType>(effects: [Store<State>.SideEffect]) -> Middleware<State> {
     return { dispatch, getState in
         return { next in
             return { action in
@@ -39,8 +34,9 @@ public func createSideEffectMiddleware<State: StateType>(effects: [AnySideEffect
                     return next(action)
                 }
                 
-                effects.filter{ $0.handles(action) }
-                    .forEach{ $0.invoke(action: action, dispatch: dispatch, state: state) }
+                effects.forEach{
+                    $0.invoke(action, state, dispatch)
+                }
                 
                 return next(action)
             }
