@@ -40,7 +40,13 @@ And thats it! 🎉
 
 ## Installation
 ### Carthage
-You can install SideEffects via Carthage by adding the following line to your Cartfile:
+You can install SideEffects via Carthage by adding the following line to your `Cartfile`:
 ```
 github "wickwirew/SideEffects"
+```
+### CocoaPods
+
+You can install SideEffects via CocoaPods by adding the following line to your `Podfile`:
+```
+pod 'SideEffects'
 ```
