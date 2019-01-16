@@ -4,8 +4,8 @@ A µFramework for handling side effects in a Redux [ReSwift](https://www.github.
 There are a lot of ways to manage side effects in a Redux application. Anything from using Thunks, Sagas, Observables and more. This is a different take on it from the normal approaches that plays to Swift's strengths, while taking inspiration from [redux-observables](https://github.com/redux-observable/redux-observable) and [ngrx effects](https://github.com/ngrx/effects) but without the `rx` part. The goal of `SideEffect`s is to allow you to easiliy, and declaritivly define something that happens anytime an `Action` is dispatched. Allowing your views to dispatch vanilla Redux actions and be completely agnostic to any side effects. They are effectively a mini middleware.
 
 ## Usage
-For example if I have an action `ItemSelected` that is dispatch when ever an item is selected from a list.
-When its fired I might want to call an API to load the record from the database.
+For example if you have an action `ItemSelected` that is dispatch when ever an item is selected from a list.
+When its fired you might want to call an API to load the record from the database.
 ```swift
 SideEffect(of: ItemSelected.self) { action, state, dispatch in
     api.loadRecord(id: action.id) { response
@@ -13,7 +13,7 @@ SideEffect(of: ItemSelected.self) { action, state, dispatch in
     }
 }
 ```
-There can also be multiple `SideEffect`s defined per action. So to coninute on the previous example, if I also wanted to display the item's view controller as well. I could define another `SideEffect` to do so.
+There can also be multiple `SideEffect`s defined per action. So to coninute on the previous example, if you also wanted to display the item's view controller as well. I could define another `SideEffect` to do so.
 ```swift
 SideEffect(of: ItemSelected.self) { action, state, dispatch in
     dispatch(SetRouteAction(...))
