@@ -1,7 +1,7 @@
 # SideEffects
 A µFramework for handling side effects in a Redux [ReSwift](https://www.github.com/ReSwift/ReSwift) applcation.
 
-There are a lot of ways to manage side effects in a Redux application. Anything from using Thunks, Sagas, Observables and more. This is a different take on it from the normal approaches that plays to Swift's strengths, while taking inspiration from [redux-observables](https://github.com/redux-observable/redux-observable) and [ngrx effects](https://github.com/ngrx/effects) but without the `rx` part. The goal of `SideEffect`s is to allow you to easiliy, and declaritivly define something that happens anytime an `Action` is dispatched. Allowing your views to dispatch vanilla Redux actions and be completely agnostic to any side effects. They are effectively a mini middleware.
+There are a lot of ways to manage side effects in a Redux application. Anything from using Thunks, Sagas, Observables and more. This is a different take on it from the normal approaches that plays to Swift's strengths, while taking inspiration from [redux-observables](https://github.com/redux-observable/redux-observable) and [ngrx effects](https://github.com/ngrx/effects) but without the `rx` part. The goal of `SideEffect`s is to allow you to easiliy, and declaritivly define a function that runs anytime an `Action` of a defined type is dispatched. Allowing your views to dispatch vanilla Redux actions and be completely agnostic to any side effects.
 
 ## Usage
 For example if you have an action `ItemSelected` that is dispatch when ever an item is selected from a list.
@@ -40,7 +40,13 @@ And thats it! 🎉
 
 ## Installation
 ### Carthage
-You can install SideEffects via Carthage by adding the following line to your Cartfile:
+You can install SideEffects via Carthage by adding the following line to your `Cartfile`:
 ```
 github "wickwirew/SideEffects"
+```
+### CocoaPods
+
+You can install SideEffects via CocoaPods by adding the following line to your `Podfile`:
+```
+pod 'SideEffects'
 ```
