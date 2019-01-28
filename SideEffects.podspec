@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = "SideEffects"
-  s.version       = "0.1"
+  s.version       = "0.1.1"
   s.summary       = "A µFramework for handling side effects in a ReSwift applcation."
   s.homepage      = "https://github.com/wickwirew/SideEffects"
   s.source        = { :git => "https://github.com/wickwirew/SideEffects.git", :tag => s.version }
