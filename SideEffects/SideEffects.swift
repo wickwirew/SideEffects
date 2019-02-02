@@ -61,11 +61,13 @@ public func createSideEffectMiddleware<State: StateType>(effects: [Store<State>.
                     return next(action)
                 }
                 
+                // call next middleware so the effect is run after the state change
+                // happens so the effect can use the state's new state
+                next(action)
+                
                 effects.forEach{
                     $0.invoke(action, state, dispatch)
                 }
-                
-                return next(action)
             }
         }
     }
