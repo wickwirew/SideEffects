@@ -45,6 +45,19 @@ extension Store {
                 handler(action, state, dispatch)
             }
         }
+        
+        /// Initializes a new `SideEffect`
+        ///
+        /// - Parameter actionTypes: A list of action types that should trigger the side effect.
+        /// - Parameter handler: A closure that is called when the side effect is invoked.
+        public init(ofAny actionTypes: Action.Type...,
+            handler: @escaping (Action, State, @escaping DispatchFunction) -> Void) {
+            self.invoke = { action, state, dispatch in
+                // filter out any actions of incorrect type and then invoke.
+                guard actionTypes.contains(where: { $0 == type(of: action) }) else { return }
+                handler(action, state, dispatch)
+            }
+        }
     }
 }
 

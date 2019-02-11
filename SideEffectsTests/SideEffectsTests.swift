@@ -7,28 +7,69 @@
 //
 
 import XCTest
+import ReSwift
 @testable import SideEffects
 
 class SideEffectsTests: XCTestCase {
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    func testSideEffect() {
+        var wasCalled = false
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+        let store = testStore(effects: [
+            SideEffect(of: TestAction.self) { _, _, _ in
+                wasCalled = true
+            }
+        ])
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        store.dispatch(Test2Action())
+        XCTAssert(!wasCalled)
+        store.dispatch(TestAction())
+        XCTAssert(wasCalled)
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testMuiltpleSideEffects() {
+        var wasCalled = false
+        
+        let store = testStore(effects: [
+            SideEffect(ofAny: TestAction.self, Test2Action.self) { _, _, _ in
+                wasCalled = true
+            }
+        ])
+        
+        store.dispatch(Test3Action())
+        XCTAssert(!wasCalled)
+        store.dispatch(TestAction())
+        XCTAssert(wasCalled)
+        
+        wasCalled = false
+        
+        store.dispatch(Test2Action())
+        XCTAssert(wasCalled)
     }
+}
 
+typealias SideEffect = Store<State>.SideEffect
+
+struct TestAction: Action {
+
+}
+
+struct Test2Action: Action {
+
+}
+
+struct Test3Action: Action {
+    
+}
+
+struct State: StateType {
+
+}
+
+func testStore(effects: [SideEffect]) -> Store<State> {
+    return Store<State>(
+        reducer: { _, _ in State() },
+        state: nil,
+        middleware: [createSideEffectMiddleware(effects: effects)]
+    )
 }

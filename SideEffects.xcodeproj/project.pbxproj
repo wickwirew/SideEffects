@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DE04722121DBFB7100F27295 /* SideEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04722021DBFB7100F27295 /* SideEffects.swift */; };
 		DE04722521DBFC1A00F27295 /* ReSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE04722421DBFC1A00F27295 /* ReSwift.framework */; };
+		DE9E4ACB22124015002162FE /* ReSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE04722421DBFC1A00F27295 /* ReSwift.framework */; };
 		DED58FB421D92B0D00F2CDE1 /* SideEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED58FAA21D92B0C00F2CDE1 /* SideEffects.framework */; };
 		DED58FB921D92B0D00F2CDE1 /* SideEffectsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED58FB821D92B0D00F2CDE1 /* SideEffectsTests.swift */; };
 		DED58FBB21D92B0D00F2CDE1 /* SideEffects.h in Headers */ = {isa = PBXBuildFile; fileRef = DED58FAD21D92B0C00F2CDE1 /* SideEffects.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -49,6 +50,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DED58FB421D92B0D00F2CDE1 /* SideEffects.framework in Frameworks */,
+				DE9E4ACB22124015002162FE /* ReSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +143,7 @@
 				DED58FAF21D92B0C00F2CDE1 /* Sources */,
 				DED58FB021D92B0C00F2CDE1 /* Frameworks */,
 				DED58FB121D92B0C00F2CDE1 /* Resources */,
+				DE6CCCD52212416800630A69 /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -208,6 +211,26 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 		DE04722221DBFBE100F27295 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/ReSwift.framework",
+			);
+			name = Carthage;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ReSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+		};
+		DE6CCCD52212416800630A69 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -445,6 +468,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = SideEffectsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -463,6 +490,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = SideEffectsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
