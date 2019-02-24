@@ -143,7 +143,6 @@
 				DED58FAF21D92B0C00F2CDE1 /* Sources */,
 				DED58FB021D92B0C00F2CDE1 /* Frameworks */,
 				DED58FB121D92B0C00F2CDE1 /* Resources */,
-				DE6CCCD52212416800630A69 /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -211,26 +210,6 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 		DE04722221DBFBE100F27295 /* Carthage */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/ReSwift.framework",
-			);
-			name = Carthage;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ReSwift.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
-		};
-		DE6CCCD52212416800630A69 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
